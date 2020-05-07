@@ -1,23 +1,25 @@
 import React,{useState, useEffect} from "react"
 
-function Question(){
+function Question(props){
+    const [submitted, setSubmitted] = useState(false)
     const [answer, setAnswer] = useState("")
     const [selected, setSelected] = useState("")
     const selectAnswer = (e) =>{
         setSelected(e.target.value)
     }
-    const checkAnswer = (e) =>{
+    const submitAnswer = (e) =>{
         e.preventDefault()
         setAnswer(selected)
+        setSubmitted(true)
     }
     useEffect(()=>{
-        alert(answer)
+        submitted && props.pushAnswer(answer)
     },[answer])
     
     return(
         <div className="Question">
             <p>Question</p>
-            <form  onSubmit={checkAnswer}>
+            <form  onSubmit={submitAnswer}>
                 <input
                     type="radio"
                     value="one"
