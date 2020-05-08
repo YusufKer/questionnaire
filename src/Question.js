@@ -1,25 +1,17 @@
-import React,{useState, useEffect} from "react"
+import React,{useState,useEffect} from "react"
 
-function Question(props){
-    const [submitted, setSubmitted] = useState(false)
-    const [answer, setAnswer] = useState("")
-    const [selected, setSelected] = useState("")
-    const selectAnswer = (e) =>{
-        setSelected(e.target.value)
-    }
-    const submitAnswer = (e) =>{
-        e.preventDefault()
-        setAnswer(selected)
-        setSubmitted(true)
+function Question({submitted,id,pushAnswer}){
+    const [userSelected,setUserSelected] = useState({id})
+    const selectAnswer=(e)=>{
+        setUserSelected({...userSelected,answer:e.target.value})
     }
     useEffect(()=>{
-        submitted && props.pushAnswer(answer)
-    },[answer])
-    
+        pushAnswer(userSelected)
+    },[submitted])
     return(
         <div className="Question">
             <p>Question</p>
-            <form  onSubmit={submitAnswer}>
+            <form>
                 <input
                     type="radio"
                     value="one"
@@ -48,9 +40,7 @@ function Question(props){
                     onChange={selectAnswer}
                 />
                 <label>four</label><br/>
-                <button>Submit</button>
             </form>
-            
         </div>
     )
 }
