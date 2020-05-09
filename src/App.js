@@ -3,24 +3,27 @@ import './App.css';
 import Question from "./Question"
 
 function App() {
-  const [submitted, setSubmitted] = useState(false)
+
   const [answers, setAnswers] = useState([])
-  const pushAnswer = (newAnswer) =>{
-    setAnswers([...answers, newAnswer])
+  const [getAnswers, setGetAnswers] = useState()
+
+  const submitAnswer = (userAnswer) =>{
+    setAnswers([...answers,userAnswer])
+    console.log(answers)
   }
   useEffect(()=>{
-    console.log(answers)
-  },[answers])
-  //
+    setGetAnswers(false)
+  },[])
+
   return (
     <div className="App">
       <h1>Questionnaire</h1>
-      <Question id={1} submitted={submitted} pushAnswer={pushAnswer}/>
-      <Question id={2} submitted={submitted} pushAnswer={pushAnswer}/>
-      <Question id={3} submitted={submitted} pushAnswer={pushAnswer}/>
-      <Question id={4} submitted={submitted} pushAnswer={pushAnswer}/>
-      <Question id={5} submitted={submitted} pushAnswer={pushAnswer}/>
-      <button onClick={()=>setSubmitted(!submitted)}>Submit</button>
+      <Question getAnswers={getAnswers} submitAnswer={submitAnswer} />
+      <Question getAnswers={getAnswers} submitAnswer={submitAnswer} />
+
+      <button onClick={()=>{
+        setGetAnswers(true)
+        }}>Submit</button>
     </div>
   );
 }

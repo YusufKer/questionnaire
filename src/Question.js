@@ -1,13 +1,16 @@
 import React,{useState,useEffect} from "react"
 
-function Question({submitted,id,pushAnswer}){
-    const [userSelected,setUserSelected] = useState({id})
-    const selectAnswer=(e)=>{
-        setUserSelected({...userSelected,answer:e.target.value})
+function Question({getAnswers,submitAnswer}){
+
+    const [selected, setSelected] = useState(null)
+    const select = (e) =>{
+        setSelected(e.target.value)
     }
     useEffect(()=>{
-        pushAnswer(userSelected)
-    },[submitted])
+        if(getAnswers){
+            submitAnswer(selected)
+        }
+    },[selected])
     return(
         <div className="Question">
             <p>Question</p>
@@ -16,28 +19,28 @@ function Question({submitted,id,pushAnswer}){
                     type="radio"
                     value="one"
                     name="answer"
-                    onChange={selectAnswer}
+                    onChange={select}
                 />
                 <label>one</label><br/>
                 <input
                     type="radio"
                     value="two"
                     name="answer"
-                    onChange={selectAnswer}
+                    onChange={select}
                 />
                 <label>two</label><br/>
                 <input
                     type="radio"
                     value="three"
                     name="answer"
-                    onChange={selectAnswer}
+                    onChange={select}
                 />
                 <label>three</label><br/>
                 <input
                     type="radio"
                     value="four"
                     name="answer"
-                    onChange={selectAnswer}
+                    onChange={select}
                 />
                 <label>four</label><br/>
             </form>
